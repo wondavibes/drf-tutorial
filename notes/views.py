@@ -1,4 +1,4 @@
-from rest_framework import generics
+from rest_framework import generics, viewsets
 from .serializers import NoteSerializer
 from .models import Note
 from rest_framework.permissions import IsAuthenticated
@@ -10,7 +10,7 @@ class NoteListCreateView(generics.ListCreateAPIView):
     serializer_class = NoteSerializer
     permission_classes = [IsAuthenticated]
 
-    def get_queryset(self):
+    def get_queryset(self):  # type: ignore
         if self.request.user.is_staff:
             return Note.objects.all()
 
@@ -24,7 +24,7 @@ class NoteDetailView(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = NoteSerializer
     permission_classes = [IsAuthenticated, IsOwnerOrAdmin]
 
-    def get_queryset(self):
+    def get_queryset(self):  # type: ignore
         if self.request.user.is_staff:
             return Note.objects.all()
 

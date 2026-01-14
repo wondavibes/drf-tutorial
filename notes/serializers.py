@@ -15,7 +15,7 @@ class NoteSerializer(serializers.ModelSerializer):
 
         return value
 
-    def validate(self, data):
+    def validate(self, data):  # type: ignore
         if data["title"] == data["content"]:
             raise serializers.ValidationError("Title must be distinct from content")
 
