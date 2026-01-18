@@ -1,8 +1,10 @@
-from rest_framework import generics, viewsets
+from rest_framework import generics
 from .serializers import NoteSerializer
 from .models import Note
 from rest_framework.permissions import IsAuthenticated
 from .permissions import IsOwnerOrAdmin
+from rest_framework_simplejwt.views import TokenObtainPairView
+from .jwt import CustomTokenObtainPairSerializer
 
 
 class NoteListCreateView(generics.ListCreateAPIView):
@@ -29,3 +31,8 @@ class NoteDetailView(generics.RetrieveUpdateDestroyAPIView):
             return Note.objects.all()
 
         return Note.objects.filter(owner=self.request.user)
+
+
+
+class CustomTokenObtainPairView(TokenObtainPairView):
+    serializer_class = CustomTokenObtainPairSerializer

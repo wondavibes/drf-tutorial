@@ -12,3 +12,12 @@ class Note(models.Model):
 
     def __str__(self):
         return self.title
+
+
+class CustomUser(models.Model):
+    username = models.CharField(max_length=150, unique=True)
+    email = models.EmailField(unique=True)
+    is_staff = models.BooleanField(default=False)
+
+    def __str__(self):
+        return self.username
