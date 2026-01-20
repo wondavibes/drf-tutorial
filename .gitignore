@@ -6,6 +6,8 @@ __pycache__/
 # C extensions
 *.so
 
+.env
+
 # Distribution / packaging
 .Python
 build/
@@ -79,5 +81,4 @@ ehthumbs.db
 
 # Ignore compiled Python extensions
 *.pyd
-
-# End of file
+.env
