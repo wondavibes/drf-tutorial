@@ -17,6 +17,9 @@ class Note(models.Model):
 class CustomUser(models.Model):
     username = models.CharField(max_length=150, unique=True)
     email = models.EmailField(unique=True)
+    user_class = models.CharField(
+        max_length=10, choices=[("standard", "Standard"), ("premium", "Premium")]
+    )
     is_staff = models.BooleanField(default=False)
 
     def __str__(self):
