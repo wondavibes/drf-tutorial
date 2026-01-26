@@ -1,5 +1,5 @@
 from rest_framework import generics
-from .serializers import NoteSerializer
+from .serializers import NoteV1Serializer
 from notes.models import Note
 from rest_framework.permissions import IsAuthenticated
 from notes.permissions import IsOwnerOrAdmin
@@ -9,7 +9,7 @@ from notes.jwt import CustomTokenObtainPairSerializer
 
 class NoteListCreateView(generics.ListCreateAPIView):
     queryset = Note.objects.all()
-    serializer_class = NoteSerializer
+    serializer_class = NoteV1Serializer
     permission_classes = [IsAuthenticated]
 
     def get_queryset(self):  # type: ignore
@@ -23,7 +23,7 @@ class NoteListCreateView(generics.ListCreateAPIView):
 
 
 class NoteDetailView(generics.RetrieveUpdateDestroyAPIView):
-    serializer_class = NoteSerializer
+    serializer_class = NoteV1Serializer
     permission_classes = [IsAuthenticated, IsOwnerOrAdmin]
 
     def get_queryset(self):  # type: ignore

@@ -4,8 +4,13 @@ from notes.models import Note
 from .serializers import NoteV2Serializer
 from notes.permissions import IsOwnerOrAdmin
 from rest_framework.permissions import IsAuthenticated
+from drf_spectacular.utils import extend_schema
 
 
+@extend_schema(
+    summary="Lists all notes",
+    description="Returns user owned notes. Admin sees all notes",
+)
 class NoteListCreateV2View(generics.ListCreateAPIView):
     serializer_class = NoteV2Serializer
     permission_classes = [IsAuthenticated, IsOwnerOrAdmin]

@@ -5,6 +5,7 @@ from rest_framework.permissions import IsAuthenticated
 from .permissions import IsOwnerOrAdmin
 from rest_framework_simplejwt.views import TokenObtainPairView
 from .jwt import CustomTokenObtainPairSerializer
+from django_filters.rest_framework import DjangoFilterBackend
 
 
 class NoteListCreateView(generics.ListCreateAPIView):
@@ -31,7 +32,6 @@ class NoteDetailView(generics.RetrieveUpdateDestroyAPIView):
             return Note.objects.all()
 
         return Note.objects.filter(owner=self.request.user)
-
 
 
 class CustomTokenObtainPairView(TokenObtainPairView):
