@@ -5,6 +5,7 @@ from .serializers import NoteV2Serializer
 from notes.permissions import IsOwnerOrAdmin
 from rest_framework.permissions import IsAuthenticated
 from drf_spectacular.utils import extend_schema
+from .filters import NoteFilter
 
 
 @extend_schema(
@@ -14,6 +15,7 @@ from drf_spectacular.utils import extend_schema
 class NoteListCreateV2View(generics.ListCreateAPIView):
     serializer_class = NoteV2Serializer
     permission_classes = [IsAuthenticated, IsOwnerOrAdmin]
+    filterset_class = NoteFilter
 
     def get_queryset(self):  # type: ignore
         user = self.request.user
