@@ -30,3 +30,22 @@ class NotePermissionsTest(APITestCase):
         results = response.data["results"]
         self.assertEqual(len(results), 1)
         self.assertEqual(results[0]["title"], "Note by Debo")
+
+    def test_admin_sees_all_notes(self):
+        self.user1.is_staff = True
+        self.user1.save()
+
+        refresh = RefreshToken.for_user(self.user1)
+        self.client.credentials(HTTP_AUTHORIZATION=f"Bearer {refresh.access_token}")
+        
+        response = self.client.get("/api/v1/notes")
+        self.assertEqual(response.status_code, 200)
+        results = response.data["results"]
+        self.assertEqual(len(results), 2)
+
+        titles = {note["title"] for note in results}
+        self.assertIn("Note by Debo", titles)
+        self.assertIn("Note by Adura", titles)
+
+    def test_unauthenticated_user_cannot_access_notes(self):
+
